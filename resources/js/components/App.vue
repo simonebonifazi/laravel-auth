@@ -1,13 +1,20 @@
 <template>
     <div class="content">
-        <div class="title m-b-md">
-            Coming soon...
-        </div>
+       <PlaceHolder :placeholder="placeholder"/>
     </div>
 </template>
 
 <script>
+    import PlaceHolder from './PlaceHolder';
     export default {
         name: "App",
+    data() {
+        return {
+            placeholder: "Work in progress",
+        };
+    },
+        components: {
+            PlaceHolder,
+        },
     };
 </script>
