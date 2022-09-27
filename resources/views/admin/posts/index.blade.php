@@ -3,6 +3,11 @@
 @section('content')
 <div class="container">
 
+    @if(session('message'))
+    <div class="alert alert-{{ session('type') ?? 'info' }}">
+        {{ session('message')}}
+    </div>
+    @endif
     <header>
         <h2> I tuoi post </h2>
     </header>
@@ -27,7 +32,11 @@
                 <td>{{$post->slug}}</td>
                 <td>{{$post->created_at}}</td>
                 <td>{{$post->updated_at}}</td>
-                <td> </td>
+                <td>
+                    <a href="{{ route('admin.posts.show' , $post ) }}" class="btn btn-sm btn-outline-primary">
+                        <i class="fa-solid fa-eye fa-3x"> Vedi</i>
+                    </a>
+                </td>
             </tr>
             @empty
             <tr>

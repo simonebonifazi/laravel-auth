@@ -44,12 +44,13 @@ class PostController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function show($id)
+    public function show(Post $post)
     {
-        //
+        
+        return view('admin.posts.show', compact('post'));
     }
 
     /**
@@ -81,8 +82,12 @@ class PostController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function destroy($id)
+    public function destroy(Post $post )
     {
-        //
+         $post->delete();
+
+        return redirect()->route('admin.posts.index')
+        ->with('message', 'Il post è stato eliminato correttamente')
+        ->with('type', 'success');
     }
 }
