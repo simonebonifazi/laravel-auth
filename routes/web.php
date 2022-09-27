@@ -13,13 +13,18 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('guest.home');
-});
-
 Auth::routes();
 
-Route::prefix('admin')->namespace('Admin')->middleware('auth')->name('admin.')->group(function () {
+//tutte le rotte dell'admin (/admin) saranno gestite da blade e laravel
+Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
-
+    //per far si che laravel e blade continuino a gestire le rotte /admin/{any}     
+    Route::get('/{any}', function(){
+        // e mostrare la page 404
+        abort('404');
+    })->where('any', '.*' );
+});
+//tutte le altre saranno gestite da vue, per cui 'lascio il controllo della rotta'
+Route::get('/{any?}', function () {
+    return view('guest.home');
 });
