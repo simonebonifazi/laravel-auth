@@ -13,7 +13,7 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes(['register' => false]);
+Auth::routes();
 
 //tutte le rotte dell'admin (/admin) saranno gestite da blade e laravel
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
