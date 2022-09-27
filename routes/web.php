@@ -13,11 +13,14 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Auth::routes();
+Auth::routes(['register' => false]);
 
 //tutte le rotte dell'admin (/admin) saranno gestite da blade e laravel
 Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->group(function () {
     Route::get('/', 'HomeController@index')->name('home');
+
+    Route::resource('posts', 'PostController');
+
     //per far si che laravel e blade continuino a gestire le rotte /admin/{any}     
     Route::get('/{any}', function(){
         // e mostrare la page 404
