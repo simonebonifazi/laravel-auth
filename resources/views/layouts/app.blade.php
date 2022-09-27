@@ -85,7 +85,8 @@
             </div>
         </nav>
 
-        <main class="py-4">
+        <main class="py-4 container">
+            @include('includes.admin.alert')
             @yield('content')
         </main>
     </div>
