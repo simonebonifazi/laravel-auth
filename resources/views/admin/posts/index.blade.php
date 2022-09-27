@@ -28,10 +28,18 @@
             <td>{{$post->slug}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
-            <td>
-                <a href="{{ route('admin.posts.show' , $post ) }}" class="btn btn-sm btn-outline-primary">
-                    <i class="fa-solid fa-eye"> Vedi ... </i>
+            <td class="d-flex align-items-center justify-content-between">
+                <a href="{{ route('admin.posts.show' , $post ) }}" class="btn btn-sm btn-outline-primary p-2">
+                    <i class="fa-solid fa-eye"> </i> Vedi ...
                 </a>
+                <form action="{{ route('admin.posts.destroy', $post->id )}}" method="POST">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="btn btn-outline-danger">
+                        <i class="fa-solid fa-trash-can"></i> Elimina!
+                    </button>
+                    <!-- TODO conferma utente  -->
+                </form>
             </td>
         </tr>
         @empty
