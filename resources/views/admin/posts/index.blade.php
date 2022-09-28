@@ -4,8 +4,11 @@
 
 
 
-<header>
+<header class="d-flex justify-content-between align-items-center mb-4">
     <h2> I tuoi post </h2>
+    <a href="{{ route('admin.posts.create') }}" class="btn btn-outline-success p-2">
+        <i class="fa-solid fa-circle-plus"></i> Nuovo post
+    </a>
 </header>
 
 
@@ -68,10 +71,16 @@
 
     </tbody>
 </table>
-<footer class="d-flex flex-end">
-    <a href="{{ route('admin.posts.create') }}" class="btn btn-outline-success p-2">
-        <i class="fa-solid fa-circle-plus"></i> Nuovo post
-    </a>
+<footer>
+    <div class="row">
+        @foreach($categories as $category)
+        <div class="col-4">
+            {{ $category->label }}
+        </div>
+        @endforeach
+
+    </div>
+
 </footer>
 
 @endsection
