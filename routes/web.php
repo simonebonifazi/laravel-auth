@@ -20,7 +20,8 @@ Route::middleware('auth')->prefix('admin')->namespace('Admin')->name('admin.')->
     Route::get('/', 'HomeController@index')->name('home');
 
     Route::resource('posts', 'PostController');
-
+    Route::resource('categories', 'CategoryController');
+    
     //per far si che laravel e blade continuino a gestire le rotte /admin/{any}     
     Route::get('/{any}', function(){
         // e mostrare la page 404
