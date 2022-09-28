@@ -21,14 +21,14 @@
 </div>
 <footer class="d-flex align-items-center justify-content-between">
 
-    <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary">
+    <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-primary">
         <i class="fa-solid fa-circle-left"> </i> Indietro ...
     </a>
-    <div>
+    <div class="d-flex">
         <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-outline-secondary p-2">
             <i class="fa-solid fa-file-pen"></i> Modifica
         </a>
-        <form action="{{ route('admin.posts.destroy', $post->id )}}" method="POST">
+        <form action="{{ route('admin.posts.destroy', $post->id )}}" method="POST" class="mx-2">
             @csrf
             @method('DELETE')
             <button type="submit" class="btn btn-outline-danger">
