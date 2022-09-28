@@ -28,10 +28,14 @@
             <td>{{$post->slug}}</td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
-            <td class="d-flex align-items-center justify-content-between">
+            <td class="d-flex align-items-center justify-content-around">
                 <a href="{{ route('admin.posts.show' , $post ) }}" class="btn btn-sm btn-outline-primary p-2">
                     <i class="fa-solid fa-eye"> </i> Vedi ...
                 </a>
+                <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-outline-secondary p-2">
+                    <i class="fa-solid fa-file-pen"></i> Modifica
+                </a>
+
                 <form action="{{ route('admin.posts.destroy', $post->id )}}" method="POST">
                     @csrf
                     @method('DELETE')
@@ -40,6 +44,7 @@
                     </button>
                     <!-- TODO conferma utente  -->
                 </form>
+
             </td>
         </tr>
         @empty
@@ -55,7 +60,7 @@
 
     </tbody>
 </table>
-<footer class="d-flex flex-start">
+<footer class="d-flex flex-end">
     <a href="{{ route('admin.posts.create') }}" class="btn btn-outline-success p-2">
         <i class="fa-solid fa-circle-plus"></i> Nuovo post
     </a>
