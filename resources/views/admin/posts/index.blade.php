@@ -82,7 +82,7 @@
                 </strong>
             </p>
             @forelse($category->posts as $post)
-            <p><a href="#">{{$post->slug}}</a></p>
+            <p><a href=" {{ route('admin.posts.show', $post) }} ">{{$post->slug}}</a></p>
             @empty
             Nessun post per questa Categoria
             @endforelse
