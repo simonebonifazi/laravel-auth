@@ -53,7 +53,9 @@ class PostController extends Controller
 
         $post->save();
 
-        return redirect()->route('admin.posts.show', $post->id);
+        return redirect()->route('admin.posts.show', $post->id)
+        ->with('message', 'Il post è stato creato con successo!')
+        ->with('type', 'success');
     }
 
     /**
@@ -96,7 +98,9 @@ class PostController extends Controller
         $post->update($data);
         
 
-        return redirect()->route('admin.posts.show', $post);
+        return redirect()->route('admin.posts.show', $post)
+        ->with('message', 'Il post è stato aggiornato correttamente')
+        ->with('type', 'success');
     }
 
     /**
