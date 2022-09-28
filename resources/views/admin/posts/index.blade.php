@@ -15,6 +15,7 @@
             <th scope="col">#</th>
             <th scope="col">Titolo</th>
             <th scope="col">Slug</th>
+            <th scope="col">Categoria:</th>
             <th scope="col">Creato alle:</th>
             <th scope="col">Ultima modifica:</th>
             <th scope="col">Azioni ... </th>
@@ -26,6 +27,13 @@
             <th scope="row">{{ $post->id }}</th>
             <td>{{$post->title}}</td>
             <td>{{$post->slug}}</td>
+            <td>
+                @if($post->category_id)
+                {{ $post->category->label }}
+                @else
+                Non inserita
+                @endif
+            </td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>
             <td class="d-flex align-items-center justify-content-around">
