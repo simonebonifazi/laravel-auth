@@ -27,8 +27,12 @@ class PostController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
+
     {
-        return view('admin.posts.create');
+        //passo un post vuoto per favorire unificazione form
+        $post = new Post();
+
+        return view('admin.posts.create' , compact('post'));
     }
 
     /**
