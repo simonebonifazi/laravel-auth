@@ -44,11 +44,8 @@
                     alt="preview" id="preview">
                 <!-- to fix w/js -->
             </div>
+
         </div>
-
-
-
-
 
         <footer class="d-flex justify-content-between align items-center">
             <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary">

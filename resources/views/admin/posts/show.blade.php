@@ -13,13 +13,22 @@
     @endif
     <p> {{ $post->content }} </p>
     <div>
+        <span> <strong> Categoria: </strong>
+            @if($post->category_id)
+            {{ $post->category->label }}
+            @else
+            Non inserita
+            @endif
+        </span>
+    </div>
+    <div class="mt-5">
         <strong> Creato il: </strong> <time> {{ $post->created_at }}</time>
     </div>
-    <div>
+    <div class="my-3">
         <strong> Ultima modifica: </strong> <time> {{ $post->updated_at }}</time>
     </div>
 </div>
-<footer class="d-flex align-items-center justify-content-between">
+<footer class="d-flex align-items-center justify-content-between mt-5">
 
     <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-primary">
         <i class="fa-solid fa-circle-left"> </i> Indietro ...
