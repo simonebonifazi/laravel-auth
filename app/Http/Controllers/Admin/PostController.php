@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers\Admin;
 
-//importo modello
+//importo modelli
 use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Models\Category;
+use Illuminate\Validation\Rule;
 
 class PostController extends Controller
 {
@@ -93,7 +94,8 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-        return view('admin.posts.edit', compact('post'));
+                $categories = Category::select('id', 'label')->get();
+        return view('admin.posts.edit', compact('post', 'categories'));
     }
 
     /**
@@ -106,6 +108,20 @@ class PostController extends Controller
     public function update(Request $request, Post $post)
     {
         $data = $request->all();
+
+          $request->validate([
+            'title' => ['required','string','min:1','max:50', Rule::unique('posts')->ignore($post->id)],
+            'content' => 'required|string',
+            'image' => 'nullable|url',
+            'category_id' => 'nullable|exists:categories,id',
+         ],[
+            'required' => 'Attenzione, il campo :attribute è obbbligatorio',
+            'title.required' => 'Attenzione, compila il campo Titolo per continuare',
+            'title.max' => 'Attenzione,il titolo non può avere più di 50 caratteri. Hai già pensato di mettere le informazioni nel contenuto?',
+            'title.min' => 'Attenzione, ci dev\'essere un titolo per procedere' ,
+            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post'
+        ]);
+
 
         //slug in maniera alternativa, non ho ancora post per cui devo prendere il title dalla request
         $data['slug'] = Str::slug($request->title , '-'); // o anche( $data['title'], '-')
