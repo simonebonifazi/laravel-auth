@@ -11,17 +11,17 @@
         <img src=" {{ $post->image }}" alt="{{ $post->slug }}">
     </figure>
     @endif
-    <p> {{ $post->content }} </p>
-    <div>
-        <span> <strong> Categoria: </strong>
-            @if($post->category_id)
-            {{ $post->category->label }}
-            @else
-            Non inserita
-            @endif
-        </span>
+    <p class="mb-5"> {{ $post->content }} </p>
+    <div class="my3">
+        <strong> Categoria: </strong>
+        @if($post->category_id)
+        {{ $post->category->label }}
+        @else
+        Non inserita
+        @endif
+
     </div>
-    <div class="mt-5">
+    <div class="my-3">
         <strong> Creato il: </strong> <time> {{ $post->created_at }}</time>
     </div>
     <div class="my-3">
