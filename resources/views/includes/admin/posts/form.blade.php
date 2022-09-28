@@ -57,3 +57,5 @@
             </button>
         </footer>
     </form>
+    @section('extra-js')
+    @endsection
