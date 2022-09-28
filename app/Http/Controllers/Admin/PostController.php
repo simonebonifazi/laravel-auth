@@ -7,6 +7,7 @@ use App\Models\Post;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
+use App\Models\Category;
 
 class PostController extends Controller
 {
@@ -31,8 +32,9 @@ class PostController extends Controller
     {
         //passo un post vuoto per favorire unificazione form
         $post = new Post();
+        $categories = Category::select('id', 'label')->get();
 
-        return view('admin.posts.create' , compact('post'));
+        return view('admin.posts.create' , compact('post', 'categories'));
     }
 
     /**
