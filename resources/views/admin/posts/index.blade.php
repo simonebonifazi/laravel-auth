@@ -72,10 +72,20 @@
     </tbody>
 </table>
 <footer>
+    <h1> I tuoi post ordinati per Categoria</h1>
     <div class="row">
         @foreach($categories as $category)
-        <div class="col-4">
-            {{ $category->label }}
+        <div class="col-6 mt-5">
+            <p class="mb-4">
+                <strong>
+                    {{ $category->label }} ({{count($category->posts)}}) :
+                </strong>
+            </p>
+            @forelse($category->posts as $post)
+            <p><a href="#">{{$post->slug}}</a></p>
+            @empty
+            Nessun post per questa Categoria
+            @endforelse
         </div>
         @endforeach
 
