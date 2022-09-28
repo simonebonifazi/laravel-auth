@@ -24,13 +24,18 @@
     <a href="{{ route('admin.posts.index') }}" class="btn btn-outline-secondary">
         <i class="fa-solid fa-circle-left"> </i> Indietro ...
     </a>
-    <form action="{{ route('admin.posts.destroy', $post->id )}}" method="POST">
-        @csrf
-        @method('DELETE')
-        <button type="submit" class="btn btn-outline-danger">
-            <i class="fa-solid fa-trash-can"></i> Elimina!
-        </button>
-    </form>
+    <div>
+        <a href="{{ route('admin.posts.edit', $post) }}" class="btn btn-sm btn-outline-secondary p-2">
+            <i class="fa-solid fa-file-pen"></i> Modifica
+        </a>
+        <form action="{{ route('admin.posts.destroy', $post->id )}}" method="POST">
+            @csrf
+            @method('DELETE')
+            <button type="submit" class="btn btn-outline-danger">
+                <i class="fa-solid fa-trash-can"></i> Elimina!
+            </button>
+        </form>
+    </div>
 </footer>
 
 
