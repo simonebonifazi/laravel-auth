@@ -17,7 +17,7 @@ class CreateCategoriesTable extends Migration
             $table->id();
             $table->string('label',20)->unique();
             $table->string('color',20)->nullable();
-            $table->boolean('is_vital')->nullable();
+            $table->boolean('is_topic')->nullable();
             $table->timestamps();
         });
     }
