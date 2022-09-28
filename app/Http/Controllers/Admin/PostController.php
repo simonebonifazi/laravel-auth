@@ -47,6 +47,19 @@ class PostController extends Controller
     {
         $data = $request->all();
 
+         $request->validate([
+            'title' => 'required|string|min:1|max:50|unique:posts',
+            'content' => 'required|string',
+            'image' => 'nullable|url',
+            'category_id' => 'nullable|exists:categories,id',
+         ],[
+            'required' => 'Attenzione, il campo :attribute è obbbligatorio',
+            'title.required' => 'Attenzione, compila il campo Titolo per continuare',
+            'title.max' => 'Attenzione,il titolo non può avere più di 50 caratteri. Hai già pensato di mettere le informazioni nel contenuto?',
+            'title.min' => 'Attenzione, ci dev\'essere un titolo per procedere' ,
+            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post'
+        ]);
+
         $post = new Post();
 
         $post->fill($data);
