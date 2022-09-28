@@ -6,4 +6,6 @@
     <h1> Modifica post</h1>
 </header>
 
+@include('includes.admin.posts.form')
+
 @endsection
