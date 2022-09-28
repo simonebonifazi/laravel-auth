@@ -17,11 +17,12 @@
             </div>
             <!-- categoria -->
             <div class="mb-3 col-3">
-                <label for="title" class="form-label"> Categoria </label>
-                <select class="custom-select custom-select-sm">
+                <label for="category_id" class="form-label"> Categoria </label>
+                <select class="custom-select custom-select-sm" id="category_id" name="category_id">
                     <option value="">Seleziona una categoria</option>
                     @foreach($categories as $category)
-                    <option value="{{ $category->id }}">{{ $category->label }}</option>
+                    <option @if(old('category_id' , $post->category_id)==$category->id) selected @endif
+                        value="{{ $category->id }}">{{ $category->label }}</option>
                     @endforeach
                 </select>
             </div>
