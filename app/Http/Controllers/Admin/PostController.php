@@ -83,18 +83,26 @@ class PostController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, Post $post)
     {
-        //
+        $data = $request->all();
+
+        //slug in maniera alternativa, non ho ancora post per cui devo prendere il title dalla request
+        $data['slug'] = Str::slug($request->title , '-'); // o anche( $data['title'], '-')
+        
+        $post->update($data);
+        
+
+        return redirect()->route('admin.posts.show', $post);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param  Post $post
      * @return \Illuminate\Http\Response
      */
     public function destroy(Post $post )
