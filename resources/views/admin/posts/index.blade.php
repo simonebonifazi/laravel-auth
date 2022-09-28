@@ -71,7 +71,7 @@
 
     </tbody>
 </table>
-<footer>
+<section id="posts-by-category">
     <h1> I tuoi post ordinati per Categoria</h1>
     <div class="row">
         @foreach($categories as $category)
@@ -91,6 +91,6 @@
 
     </div>
 
-</footer>
+</section>
 
 @endsection
