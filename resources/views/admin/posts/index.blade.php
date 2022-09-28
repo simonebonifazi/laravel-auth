@@ -55,5 +55,10 @@
 
     </tbody>
 </table>
+<footer class="d-flex flex-start">
+    <a href="{{ route('admin.posts.create') }}" class="btn btn-outline-success p-2">
+        <i class="fa-solid fa-circle-plus"></i> Nuovo post
+    </a>
+</footer>
 
 @endsection
