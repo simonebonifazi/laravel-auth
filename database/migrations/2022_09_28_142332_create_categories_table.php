@@ -18,7 +18,7 @@ class CreateCategoriesTable extends Migration
             $table->string('label',20)->unique();
             $table->string('color',20)->nullable();
             $table->boolean('is_vital')->nullable();
-            $table->boolean('is_recomended')->nullable();
+            $table->boolean('is_recommended')->nullable();
             $table->timestamps();
         });
     }
