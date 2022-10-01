@@ -15,6 +15,11 @@ class CreateUserDetailsTable extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
+            $table->string('residence');
+            $table->string('country', 25);
+            $table->string('language', 25);
+            //curare aspetto pagamenti 
+            $table->string('paypal');
             $table->timestamps();
         });
     }
