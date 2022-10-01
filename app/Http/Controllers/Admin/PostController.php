@@ -68,7 +68,7 @@ class PostController extends Controller
         $post->fill($data);
         //slug   
         $post->slug = Str::slug($post->title , '-');
-
+            
         $post->save();
 
         return redirect()->route('admin.posts.show', $post->id)
