@@ -15,7 +15,7 @@ class CreateUserDetailsTable extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger();
+            $table->unsignedBigInteger('user_id')->nullable();
             $table->string('residence')->nullable();
             $table->string('country', 25)->nullable();
             $table->string('language', 25)->nullable();
@@ -23,7 +23,7 @@ class CreateUserDetailsTable extends Migration
             $table->string('paypal')->nullable();
             $table->timestamps();
 
-            $table->foreign('user_id')->reference('id')->on('');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('set null');
         });
     }
 
@@ -34,6 +34,9 @@ class CreateUserDetailsTable extends Migration
      */
     public function down()
     {
+        //posso non demolire anche la relazione se onDelete set null;
+        //$table->dropForeign('users_user_detail_id_foreign');
+
         Schema::dropIfExists('user_details');
     }
 }
