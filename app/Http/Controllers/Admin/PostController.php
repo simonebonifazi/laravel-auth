@@ -76,6 +76,11 @@ class PostController extends Controller
         $post->user_id = Auth::id(); 
             
         $post->save();
+        //se è stato spuntato almeno un checkbox, montalo sul db
+        if(array_key_exists('tags', $data))
+        {
+            $post->tags()->attach($data['tags']);
+        }
 
         return redirect()->route('admin.posts.show', $post->id)
         ->with('message', 'Il post è stato creato con successo!')
