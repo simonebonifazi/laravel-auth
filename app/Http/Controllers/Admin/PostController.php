@@ -58,6 +58,7 @@ class PostController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|url',
             'category_id' => 'nullable|exists:categories,id',
+            'tags' => 'nullable|exists:tags,id',
          ],[
             'required' => 'Attenzione, il campo :attribute è obbbligatorio',
             'title.required' => 'Attenzione, compila il campo Titolo per continuare',
