@@ -15,8 +15,8 @@ class CreateTagsTable extends Migration
     {
         Schema::create('tags', function (Blueprint $table) {
             $table->id();
-              $table->string('label')->unique();
-            $table->char('color', 7)->default('#f2f2f');
+            $table->string('label')->unique();
+            $table->char('color', 7)->default('#f2f2f2');
             $table->timestamps();
         });
     }

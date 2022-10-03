@@ -13,17 +13,17 @@ class CreatePostTagTable extends Migration
      */
     public function up()
     {
-        // Schema::create('post_tag', function (Blueprint $table) {
-        //     $table->id();
-
-        //     $table->unsignedBigInteger('post_id');
-        //     $table->foreign('post_id')->references('id')->on('posts')->onDelete('set null');
+        Schema::create('post_tag', function (Blueprint $table) {
+            $table->id();
             
-        //     $table->unsignedBigInteger('tag_id');
-        //     $table->foreign('tag_id')->references('id')->on('tags')->onDelete('set null');
+            $table->unsignedBigInteger('post_id');
+            $table->foreign('post_id')->references('id')->on('posts')->onDelete('cascade');
+            
+            $table->unsignedBigInteger('tag_id');
+            $table->foreign('tag_id')->references('id')->on('tags')->onDelete('cascade');
 
-        //     $table->timestamps();
-        // });
+            $table->timestamps();
+        });
     }
 
     /**
