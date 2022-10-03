@@ -17,7 +17,7 @@ class CreateUserDetailsTable extends Migration
             $table->id();
             $table->unsignedBigInteger('user_id')->nullable();
             $table->string('residence')->nullable();
-            $table->string('country', 25)->nullable();
+            $table->string('phone')->nullable();
             $table->string('language', 25)->nullable();
             //curare aspetto pagamenti 
             $table->string('paypal')->nullable();
