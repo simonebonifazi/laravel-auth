@@ -48,6 +48,17 @@
                       alt="preview" id="preview">
                   <!-- to fix w/js -->
               </div>
+              @if(count($tags))
+              <div class="mb-3 col-6">
+                  <h3> Tags</h3>
+                  @foreach($tags as $tag)
+                  <div class="form-group form-check">
+                      <input type="checkbox" class="form-check-input">
+                      <label class="form-check-label"> {{$tag->label}} </label>
+                  </div>
+                  @endforeach
+              </div>
+              @endif
 
           </div>
 

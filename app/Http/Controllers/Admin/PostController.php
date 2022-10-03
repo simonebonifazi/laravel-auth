@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 //importo modelli
 use App\Models\Post;
+use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -37,8 +38,9 @@ class PostController extends Controller
         //passo un post vuoto per favorire unificazione form
         $post = new Post();
         $categories = Category::select('id', 'label')->get();
+        $tags = Tag::select('id', 'label')->get();
 
-        return view('admin.posts.create' , compact('post', 'categories'));
+        return view('admin.posts.create' , compact('post', 'categories', 'tags'));
     }
 
     /**
