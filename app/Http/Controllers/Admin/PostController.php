@@ -59,12 +59,13 @@ class PostController extends Controller
             'image' => 'nullable|url',
             'category_id' => 'nullable|exists:categories,id',
             'tags' => 'nullable|exists:tags,id',
-         ],[
+        ],[
             'required' => 'Attenzione, il campo :attribute è obbbligatorio',
             'title.required' => 'Attenzione, compila il campo Titolo per continuare',
             'title.max' => 'Attenzione,il titolo non può avere più di 50 caratteri. Hai già pensato di mettere le informazioni nel contenuto?',
             'title.min' => 'Attenzione, ci dev\'essere un titolo per procedere' ,
-            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post'
+            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post',
+            'tags.exists' => 'uno dei tag selezionati è non valido',
         ]);
 
         $post = new Post();
@@ -107,8 +108,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-                $categories = Category::select('id', 'label')->get();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $categories = Category::select('id', 'label')->get();
+        $tags = Tag::select('id', 'label')->get();
+        $tag_ids = $post->tags->pluck('id')->toArray();
+
+        return view('admin.posts.edit', compact('post', 'categories','tags','tag_ids'));
     }
 
     /**
