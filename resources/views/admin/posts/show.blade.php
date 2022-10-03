@@ -22,6 +22,15 @@
 
     </div>
     <div class="my-3">
+        <strong> Tag: </strong>
+        @forelse($post->tags as $tag)
+        <!-- gestire lo stile -->
+        <span class="mx-2"> {{ $tag->label}} </span>
+        @empty
+        Nessun tag selezionato per questo post
+        @endforelse
+    </div>
+    <div class="my-3">
         <strong> Creato il: </strong> <time> {{ $post->created_at }}</time>
     </div>
     <div class="my-3">
