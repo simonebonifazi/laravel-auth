@@ -25,7 +25,7 @@
         <strong> Tag: </strong>
         @forelse($post->tags as $tag)
         <!-- gestire lo stile -->
-        <span class="mx-2"> {{ $tag->label}} </span>
+        <span class="mx-2"> {{ $tag->label}} @if ($loop->last) . @else , @endif </span>
         @empty
         Nessun tag selezionato per questo post
         @endforelse
