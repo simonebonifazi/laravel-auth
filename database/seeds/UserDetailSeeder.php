@@ -20,8 +20,8 @@ class UserDetailSeeder extends Seeder
             $new_user_detail = new UserDetail();
 
             $new_user_detail->user_id = 1;
-            $new_user_detail->paypal = $faker->text(25);
-            $new_user_detail->residence = $faker->email();
+            $new_user_detail->paypal = $faker->email();
+            $new_user_detail->residence = $faker->address();
             $new_user_detail->country = $faker->text(25);
             $new_user_detail->language = $faker->text(25);
 
