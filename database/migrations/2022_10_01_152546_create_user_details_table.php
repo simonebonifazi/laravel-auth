@@ -15,12 +15,15 @@ class CreateUserDetailsTable extends Migration
     {
         Schema::create('user_details', function (Blueprint $table) {
             $table->id();
-            $table->string('residence');
-            $table->string('country', 25);
-            $table->string('language', 25);
+            $table->unsignedBigInteger();
+            $table->string('residence')->nullable();
+            $table->string('country', 25)->nullable();
+            $table->string('language', 25)->nullable();
             //curare aspetto pagamenti 
-            $table->string('paypal');
+            $table->string('paypal')->nullable();
             $table->timestamps();
+
+            $table->foreign('user_id')->reference('id')->on('');
         });
     }
 
