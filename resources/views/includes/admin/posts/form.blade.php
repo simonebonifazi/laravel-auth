@@ -55,8 +55,9 @@
 
                       @foreach($tags as $tag)
                       <div class="form-group form-check m-2">
-                          <input type="checkbox" class="form-check-input">
-                          <label class="form-check-label"> {{$tag->label}} </label>
+                          <input type="checkbox" id="{{$tag->label}}" name="tags[]" value="{{ $tag->id }}"
+                              class="form-check-input">
+                          <label class="form-check-label" for="{{$tag->label}}"> {{$tag->label}} </label>
                       </div>
                       @endforeach
                   </div>
