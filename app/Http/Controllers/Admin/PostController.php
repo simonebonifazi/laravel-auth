@@ -82,7 +82,7 @@ class PostController extends Controller
         {
             $post->tags()->attach($data['tags']);
         }
-
+        
         return redirect()->route('admin.posts.show', $post->id)
         ->with('message', 'Il post è stato creato con successo!')
         ->with('type', 'success');
@@ -126,17 +126,20 @@ class PostController extends Controller
     {
         $data = $request->all();
 
-          $request->validate([
+        $request->validate([
             'title' => ['required','string','min:1','max:50', Rule::unique('posts')->ignore($post->id)],
             'content' => 'required|string',
             'image' => 'nullable|url',
             'category_id' => 'nullable|exists:categories,id',
-         ],[
+            'tags' => 'nullable|exists:tags,id',
+        ],[
             'required' => 'Attenzione, il campo :attribute è obbbligatorio',
             'title.required' => 'Attenzione, compila il campo Titolo per continuare',
             'title.max' => 'Attenzione,il titolo non può avere più di 50 caratteri. Hai già pensato di mettere le informazioni nel contenuto?',
             'title.min' => 'Attenzione, ci dev\'essere un titolo per procedere' ,
-            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post'
+            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post',
+            'tags.exists' => 'uno dei tag selezionati è non valido',
+
         ]);
 
 
@@ -144,6 +147,13 @@ class PostController extends Controller
         $data['slug'] = Str::slug($request->title , '-'); // o anche( $data['title'], '-')
         
         $post->update($data);
+
+       if(array_key_exists('tags', $data))
+        {
+            $post->tags()->sync($data['tags']);
+        } else{
+            $post->tags()->detach();
+        }
         
 
         return redirect()->route('admin.posts.show', $post)
