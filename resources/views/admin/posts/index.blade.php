@@ -19,9 +19,10 @@
             <th scope="col">Titolo</th>
             <th scope="col">Slug</th>
             <th scope="col">Categoria:</th>
+            <th scope="col">Tag:</th>
             <th scope="col">Creato alle:</th>
             <th scope="col">Ultima modifica:</th>
-            <th scope="col">Azioni ... </th>
+            <th scope="col" class="text-center">Azioni ... </th>
         </tr>
     </thead>
     <tbody>
@@ -36,6 +37,15 @@
                 @else
                 Non inserita
                 @endif
+            </td>
+            <td>
+
+                @forelse($post->tags as $tag)
+                <!-- gestire lo stile -->
+                <span class="mx-1"> {{ $tag->label}} @if ($loop->last) . @else , @endif </span>
+                @empty
+                Nessun tag selezionato per questo post
+                @endforelse
             </td>
             <td>{{$post->created_at}}</td>
             <td>{{$post->updated_at}}</td>

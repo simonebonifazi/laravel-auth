@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 //importo modelli
 use App\Models\Post;
+use App\Models\Tag;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -37,8 +38,9 @@ class PostController extends Controller
         //passo un post vuoto per favorire unificazione form
         $post = new Post();
         $categories = Category::select('id', 'label')->get();
+        $tags = Tag::select('id', 'label')->get();
 
-        return view('admin.posts.create' , compact('post', 'categories'));
+        return view('admin.posts.create' , compact('post', 'categories', 'tags'));
     }
 
     /**
@@ -56,12 +58,14 @@ class PostController extends Controller
             'content' => 'required|string',
             'image' => 'nullable|url',
             'category_id' => 'nullable|exists:categories,id',
-         ],[
+            'tags' => 'nullable|exists:tags,id',
+        ],[
             'required' => 'Attenzione, il campo :attribute è obbbligatorio',
             'title.required' => 'Attenzione, compila il campo Titolo per continuare',
             'title.max' => 'Attenzione,il titolo non può avere più di 50 caratteri. Hai già pensato di mettere le informazioni nel contenuto?',
             'title.min' => 'Attenzione, ci dev\'essere un titolo per procedere' ,
-            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post'
+            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post',
+            'tags.exists' => 'uno dei tag selezionati è non valido',
         ]);
 
         $post = new Post();
@@ -73,7 +77,12 @@ class PostController extends Controller
         $post->user_id = Auth::id(); 
             
         $post->save();
-
+        //se è stato spuntato almeno un checkbox, montalo sul db
+        if(array_key_exists('tags', $data))
+        {
+            $post->tags()->attach($data['tags']);
+        }
+        
         return redirect()->route('admin.posts.show', $post->id)
         ->with('message', 'Il post è stato creato con successo!')
         ->with('type', 'success');
@@ -99,8 +108,11 @@ class PostController extends Controller
      */
     public function edit(Post $post)
     {
-                $categories = Category::select('id', 'label')->get();
-        return view('admin.posts.edit', compact('post', 'categories'));
+        $categories = Category::select('id', 'label')->get();
+        $tags = Tag::select('id', 'label')->get();
+        $tag_ids = $post->tags->pluck('id')->toArray();
+
+        return view('admin.posts.edit', compact('post', 'categories','tags','tag_ids'));
     }
 
     /**
@@ -114,17 +126,20 @@ class PostController extends Controller
     {
         $data = $request->all();
 
-          $request->validate([
+        $request->validate([
             'title' => ['required','string','min:1','max:50', Rule::unique('posts')->ignore($post->id)],
             'content' => 'required|string',
             'image' => 'nullable|url',
             'category_id' => 'nullable|exists:categories,id',
-         ],[
+            'tags' => 'nullable|exists:tags,id',
+        ],[
             'required' => 'Attenzione, il campo :attribute è obbbligatorio',
             'title.required' => 'Attenzione, compila il campo Titolo per continuare',
             'title.max' => 'Attenzione,il titolo non può avere più di 50 caratteri. Hai già pensato di mettere le informazioni nel contenuto?',
             'title.min' => 'Attenzione, ci dev\'essere un titolo per procedere' ,
-            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post'
+            'title.unique' => 'Attenzione, il titolo scelto è già associato ad un altro post',
+            'tags.exists' => 'uno dei tag selezionati è non valido',
+
         ]);
 
 
@@ -132,6 +147,13 @@ class PostController extends Controller
         $data['slug'] = Str::slug($request->title , '-'); // o anche( $data['title'], '-')
         
         $post->update($data);
+
+       if(array_key_exists('tags', $data))
+        {
+            $post->tags()->sync($data['tags']);
+        } else{
+            $post->tags()->detach();
+        }
         
 
         return redirect()->route('admin.posts.show', $post)
@@ -147,7 +169,10 @@ class PostController extends Controller
      */
     public function destroy(Post $post )
     {
-         $post->delete();
+        //ulteriore controllo sul funzionamento di cascade
+        if(count($post->tags)) $post->tags->detach();
+
+        $post->delete();
 
         return redirect()->route('admin.posts.index')
         ->with('message', 'Il post è stato eliminato correttamente')

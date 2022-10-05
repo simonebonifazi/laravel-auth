@@ -48,6 +48,23 @@
                       alt="preview" id="preview">
                   <!-- to fix w/js -->
               </div>
+              <!-- multi-checkboxs -->
+              @if(count($tags))
+              <div class="mb-3 col-6">
+                  <h3> Tags</h3>
+                  <div class="d-flex">
+
+                      @foreach($tags as $tag)
+                      <div class="form-group form-check m-2">
+                          <input type="checkbox" id="{{$tag->label}}" name="tags[]" value="{{ $tag->id }}"
+                              class="form-check-input" @if(in_array($tag->id, old('tags', $tag_ids ?? []))) checked
+                          @endif >
+                          <label class="form-check-label" for="{{$tag->label}}"> {{$tag->label}} </label>
+                      </div>
+                      @endforeach
+                  </div>
+              </div>
+              @endif
 
           </div>
 
