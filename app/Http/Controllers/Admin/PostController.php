@@ -170,7 +170,7 @@ class PostController extends Controller
     public function destroy(Post $post )
     {
         //ulteriore controllo sul funzionamento di cascade
-        if(count($post->tags)) $post->tags->detach();
+       // if(count($post->tags)) $post->tags->detach();
 
         $post->delete();
 
